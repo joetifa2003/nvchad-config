@@ -3,13 +3,6 @@ local M = {}
 
 M.general = {
   n = {
-    --  format with conform
-    ["<leader>fm"] = {
-      function()
-        require("conform").format()
-      end,
-      "formatting",
-    },
     ["]b"] = {
       function()
         require("nvchad.tabufline").tabuflineNext()
@@ -23,6 +16,17 @@ M.general = {
       "Goto prev buffer",
     },
     ["<leader>e"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
+  },
+}
+
+M.lsp = {
+  n = {
+    ["<leader>la"] = {
+      function()
+        vim.lsp.buf.code_action()
+      end,
+      "Code actions",
+    },
   },
 }
 

@@ -3,7 +3,7 @@ local M = {}
 
 M.ui = {
   theme = "catppuccin",
-  lsp_semantic_tokens = false,
+  lsp_semantic_tokens = true,
 
   nvdash = {
     load_on_startup = true,

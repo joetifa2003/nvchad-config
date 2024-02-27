@@ -1,4 +1,5 @@
 local overrides = require "custom.configs.overrides"
+local on_attach = require("plugins.configs.lspconfig").on_attach
 
 ---@type NvPluginSpec[]
 local plugins = {
@@ -35,22 +36,6 @@ local plugins = {
     end,
   },
 
-  {
-    "stevearc/conform.nvim",
-    lazy = false,
-    --  for users those who want auto-save conform + lazyloading!
-    -- event = "BufWritePre"
-    config = function()
-      require "custom.configs.conform"
-    end,
-  },
-
-  -- To make a plugin not be loaded
-  -- {
-  --   "NvChad/nvim-colorizer.lua",
-  --   enabled = false
-  --
-  --
   {
     "NvChad/nvterm",
     enabled = false,
@@ -287,6 +272,39 @@ local plugins = {
         },
       },
     },
+  },
+
+  {
+    "nvimtools/none-ls.nvim",
+    lazy = false,
+    config = function()
+      local null_ls = require "null-ls"
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+      require("null-ls").setup {
+        -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
+        sources = {
+          null_ls.builtins.formatting.stylua,
+          null_ls.builtins.completion.spell,
+          null_ls.builtins.formatting.goimports_reviser,
+          null_ls.builtins.diagnostics.codespell,
+        },
+        on_attach = function(client, bufnr)
+          on_attach(client, bufnr)
+          if client.supports_method "textDocument/formatting" then
+            vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format { async = false }
+              end,
+            })
+          end
+        end,
+      }
+    end,
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
 }
 
