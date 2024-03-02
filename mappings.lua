@@ -73,11 +73,17 @@ M.telescope = {
       end,
       "LSP symbols",
     },
+    ["<leader>lD"] = {
+      function()
+        require("telescope.builtin").diagnostics {}
+      end,
+      "LSP diagnostics",
+    },
     ["gr"] = {
       function()
         require("telescope.builtin").lsp_references {}
       end,
-      "LSP refernces",
+      "LSP references",
     },
     ["gi"] = {
       function()
@@ -140,6 +146,35 @@ M.splits = {
       function()
         require("smart-splits").move_cursor_right()
       end,
+    },
+  },
+}
+
+M.grapple = {
+  n = {
+    ["<leader>a"] = {
+      function()
+        require("grapple").tag()
+      end,
+      "Harpoon append",
+    },
+    ["<leader>h"] = {
+      function()
+        require("grapple").toggle_tags()
+      end,
+      "Harpoon list",
+    },
+    ["]]"] = {
+      function()
+        require("grapple").cycle_forward()
+      end,
+      "Harpoon next",
+    },
+    ["[["] = {
+      function()
+        require("grapple").cycle_backward()
+      end,
+      "Harpoon prev",
     },
   },
 }

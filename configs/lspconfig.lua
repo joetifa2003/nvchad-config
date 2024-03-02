@@ -5,13 +5,15 @@ local lspconfig = require "lspconfig"
 
 -- if you just want default config for the servers then put them in a table
 local servers = {
+  "bashls",
+  "tsserver",
   "eslint",
   "jdtls",
   "gopls",
   "html",
   "cssls",
-  "tsserver",
   "clangd",
+  "typos_lsp",
 }
 
 for _, lsp in ipairs(servers) do
@@ -20,6 +22,3 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
-
---
--- lspconfig.pyright.setup { blabla}

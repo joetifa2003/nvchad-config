@@ -2,8 +2,8 @@
 local M = {}
 
 M.ui = {
-  theme = "catppuccin",
-  lsp_semantic_tokens = true,
+  theme = "aquarium",
+  lsp_semantic_tokens = false,
 
   nvdash = {
     load_on_startup = true,
@@ -11,6 +11,20 @@ M.ui = {
   statusline = {
     theme = "vscode_colored",
   },
+
+  hl_override = {
+    ["@parameter"] = {
+      fg = "white",
+    },
+    ["@punctuation.bracket"] = {
+      fg = "#e8cca7",
+    },
+    ["Repeat"] = {
+      fg = "purple",
+    },
+  },
+
+  extended_integrations = { "dap" },
 }
 
 M.plugins = "custom.plugins"
